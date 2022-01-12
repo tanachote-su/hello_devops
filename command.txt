@@ -7,6 +7,13 @@ docker images
 #แสดงรายชื่อและสถานะ Container
 docker ps -a
 
+docker rm -f hello_devops
+docker rmi -f hello_devops
+docker build -f ./hello_devops/Dockerfile -t abc/hello_devops .
+docker run -d --name hello_devops hello_devops
+winpty docker exec -it hello_devops bash
+docker inspect hello_devops
+docker logs hello_devops -f
 #2.stop container
 docker-compose down
 #rebuild container

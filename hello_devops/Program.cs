@@ -3,18 +3,16 @@ using System.Threading;
 
 namespace hello_devops
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        const string title="Debug6";
+        public static void Main()
         {
-            //Console.WriteLine("Hello World!");
-            //Console.WriteLine("");
-            //Console.WriteLine("Press anykey to exit.");
-            //Console.ReadLine();
+
             int seq = 0;
             while (true)
             {
-                Console.WriteLine($"#{++seq} {DateTime.Now}");
+                Console.WriteLine($"#{++seq} {DateTime.Now} => {title}");
                 Thread.Sleep(1000);
             }
         }
