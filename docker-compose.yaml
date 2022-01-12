@@ -1,0 +1,9 @@
+version: '3'
+services:
+    hello_devops-project:
+        build:
+            context: ./ #solution folder
+            dockerfile: hello_devops/Dockerfile #project folder
+        image: hello_devops
+        container_name: hello_devops
+        restart: always

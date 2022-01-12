@@ -1,0 +1,81 @@
+#microsoft
+pull mcr.microsoft.com/dotnet/runtime:5.0
+docker pull mcr.microsoft.com/dotnet/sdk:5.0
+
+#1.แสดงรายชื่อ DockerImage
+docker images
+#แสดงรายชื่อและสถานะ Container
+docker ps -a
+
+#2.stop container
+docker-compose down
+#rebuild container
+docker-compose up -d --build
+
+#3แสดงรายชื่อ DockerImage
+docker images
+#แสดงรายชื่อและสถานะ Container
+docker ps -a
+
+#4.ทดสอบการทำงานให้เรียบร้อย
+docker inspect pos-mqadalink
+docker logs pos-mqadalink -f
+
+#5.Save Image to tar file format
+#Pattern "<ชื่อ Project ตัวเล็กทั้งหมด>"[<Version>] ex. mqadalink[000.00.00].tar
+#docker save -o <path for generated tar file> <image name>
+docker save -o mqadalink[5.20002.0.2919].tar mqadalink:5.20002.0.2919
+
+
+#คำสั่งในการลบ image
+#ต้องลบ Container ก่อน แล้วจึงค่อยลบ Image
+#ลบ Container
+docker rm --force <ตามด้วยชื่อ หรือ id>
+#ลบ Image
+docker rmi --force <ตามด้วยชื่อ image:version หรือ id>
+
+#การ Import หรือ Load Image from file tar
+docker load -i mqadalink[5.20002.0.2919].tar
+
+
+docker run -p 80:80 -d --name nginx -h nginx nginx
+
+winpty docker exec -it hello_devops bash
+#-----------------------------
+
+#push docker to Azure container registry
+docker push p703acrsi01.azurecr.io/app/mqadalink:5.20002.0.2918
+docker inspect p703acrsi01.azurecr.io/app/mqadalink:5.20002.0.2918
+
+#crate aks deployment from acr
+kubectl apply -f mqadalink-mas-1.yaml
+kubectl apply -f mqadalink-sal-1.yaml
+kubectl apply -f mqadalink-doc-1.yaml
+
+kubectl apply -f mqadalink-mas-2.yaml
+kubectl apply -f mqadalink-sal-2.yaml
+kubectl apply -f mqadalink-doc-2.yaml
+
+#create ClusterIP
+#kubectl apply -f clusterip.yaml
+
+#create LoadbaLancer ไม่ใช้
+#kubectl apply -f cluster-service.yaml
+
+kubectl logs deployment/pos-mqadalink-mas-1
+#finish
+
+#goto https://portal.azure.com/
+
+#tools
+docker rm $(docker ps -a -f status=exited -q)
+docker rmi $(docker images -f “dangling=true” -q)
+
+kubectl exec deployment/pos-mqadalink-mas-1 -it -- /bin/sh
+#ls /mnt/azure
+ # cat /mnt/azure/myfile.txt
+
+ #docker volume location.
+
+ \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\
+ 

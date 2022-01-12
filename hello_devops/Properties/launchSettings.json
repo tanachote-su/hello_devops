@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "hello_devops": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
