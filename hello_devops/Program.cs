@@ -5,7 +5,7 @@ namespace hello_devops
 {
     public class Program
     {
-        const string title="Debug6";
+        const string title="Release1";
         public static void Main()
         {
 
