@@ -1,0 +1,2 @@
+[k8s-master]
+54.151.162.184 ansible_user=ec2-user

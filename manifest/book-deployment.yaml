@@ -1,0 +1,11 @@
+---
+- name: ansible playbook to copy a file
+  hosts: all
+  become: true
+  tasks:
+  - name: copy a file
+    copy: 
+      src: deployment.yaml
+      dest: /home/ec2-user
+      mode: 0600
+      owner: ec2-user

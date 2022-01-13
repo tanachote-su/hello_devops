@@ -50,3 +50,5 @@ pipeline{
                 remote.password = 'k8sadmin'
                 remote.allowAnyHosts = true
         } 
+
+       
