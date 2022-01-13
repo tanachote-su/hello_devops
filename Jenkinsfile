@@ -44,14 +44,17 @@ pipeline{
 		}
 
         stage("SSH Into k8s Server") {
-                def remote = [:]
-                remote.name = 'k8s-master'
-                remote.host = '54.151.162.184'
-                remote.user = 'k8sadmin'
-                remote.password = 'k8sadmin'
-                remote.allowAnyHosts = true
+            def remote = [:]
+            remote.name = 'k8s-master'
+            remote.host = '54.151.162.184'
+            remote.user = 'k8sadmin'
+            remote.password = 'k8sadmin'
+            remote.allowAnyHosts = true
+            steps{
+                echo ""
+            }
         } 
-        
+
         stage('Deploying App to Kubernetes') {
             steps{
                 dir('hello_devops/manifest/') {
