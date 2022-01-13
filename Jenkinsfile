@@ -45,7 +45,7 @@ pipeline{
 
         stage("Deployment"){
             steps{
-                sh "kubectl apply -f ./manifest/deployment.yaml"
+                echo "kubectl apply -f ./manifest/deployment.yaml"
             }
         }                
     }
