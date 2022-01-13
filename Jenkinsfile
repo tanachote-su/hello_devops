@@ -21,7 +21,7 @@ pipeline{
 		stage('Deploying App to Kubernetes') {
 		    steps {
 			    sh "pwd"
-			    sh "cat ./hello_devops/manifest/deploymentservice.yml"
+			    sh "cat ./hello_devops/manifest/deployments.yaml"
 		    }
 		}
     }
