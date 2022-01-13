@@ -43,11 +43,14 @@ pipeline{
 			}
 		}
         stage('Deploying App to Kubernetes') {
-            steps {
-                script {
-                    kubernetesDeploy(configs: "~jenkins/workspace/hello_devops/hello_devops/manifest/deployment.yaml", kubeconfigId: "kubernetes")
+            steps{
+                dir('hello_devops/manifest/') {
+                    sh "pwd"
+                    script {
+                        kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "kubernetes")
+                    }
                 }
-            }
+            }  
         }
     }
 	post {
