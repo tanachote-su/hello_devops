@@ -14,6 +14,7 @@ pipeline{
         stage("Build Docker Image"){
             steps{
                 dir('hello_devops') {
+                    sh "pwd"
                     echo "Clean Environment ..."
                     sh "docker rm -f hello_devops"
                     sh "docker rmi -f hello_devops"
@@ -23,6 +24,14 @@ pipeline{
                     sh "docker run -d --name hello_devops hello_devops"
                 }
             }
-        }                        
+        }
+        stage("Deployment"){
+            steps{
+                dir('hello_devops/manifest') {
+                    sh "pwd"
+
+                }
+            }
+        }                          
     }
 }
