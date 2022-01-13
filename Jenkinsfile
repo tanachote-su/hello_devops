@@ -42,13 +42,13 @@ pipeline{
 				sh 'docker push ${repoName}/${imageName}:${imageTag}'
 			}
 		}
-
         stage("Deployment"){
             steps{
-                sh "pwd"
-                echo "kubectl apply -f ./manifest/deployment.yaml"
+                dir('hello_devops/manifest') {
+                    sh "kubectl apply -f deployment.yaml"
+                }
             }
-        }                
+        }
     }
 	post {
 		always {
