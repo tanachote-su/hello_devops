@@ -1,5 +1,11 @@
 pipeline{
     agent any
+	environment {
+        DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+        def repoName = "icyberx"
+        def imageTag = "1.0.0.1"
+        def imageName = "hello_devops"
+	}    
     stages{
         stage("Clean Up"){
             steps{
@@ -15,14 +21,31 @@ pipeline{
             steps{
                 dir('hello_devops') {
                     echo "Clean Environment ..."
-                    sh "docker rm -f hello_devops"
-                    sh "docker rmi -f hello_devops"
+                    sh "docker rm -f ${imageName}"
+                    sh "docker rmi -f ${repoName}/${imageName}:${imageTag}"
                     echo ""
                     echo "Build image && Run container in background ..."
-                    sh "docker build -f ./hello_devops/Dockerfile -t hello_devops ."
-                    sh "docker run -d --name hello_devops hello_devops"
+                    sh "docker build -f ./hello_devops/Dockerfile -t ${repoName}/${imageName}:${imageTag} ."
                 }
             }
-        }                        
+        }
+		stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push ${repoName}/${imageName}:${imageTag}'
+			}
+		}        
     }
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}    
 }
