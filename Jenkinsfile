@@ -42,13 +42,12 @@ pipeline{
 				sh 'docker push ${repoName}/${imageName}:${imageTag}'
 			}
 		}
-        stage('Deploying App to Kubernetes') {
-            steps {
-                script {
-                    kubernetesDeploy(configs: "./hello_devops/manifest/deploymentservice.yml", kubeconfigId: "kubernetes")
-                }
-            }
-        }
+		stage('Deploying App to Kubernetes') {
+		    steps {
+			    sh "pwd"
+			    sh "cat ./hello_devops/manifest/deploymentservice.yml"
+		    }
+		}
     }
 	post {
 		always {
