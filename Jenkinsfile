@@ -46,6 +46,7 @@ pipeline{
             steps{
                 dir('hello_devops/manifest/') {
                     sh "pwd"
+                    sh "cat deployment.yaml"
                     script {
                         kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "kubernetes")
                     }
