@@ -45,7 +45,7 @@ pipeline{
         stage("Deployment"){
             steps{
                 dir('hello_devops/manifest') {
-                    sh "kubectl apply -f deployment.yaml"
+                    sh "kubectl get pod"
                 }
             }
         }
