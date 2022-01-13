@@ -5,12 +5,6 @@ pipeline{
         def repoName = "icyberx"
         def imageTag = "1.0.0.2"
         def imageName = "hello_devops"
-        def remote = [:]
-        remote.name = 'k8s-master'
-        remote.host = '54.151.162.184'
-        remote.user = 'k8sadmin'
-        remote.password = 'k8sadmin'
-        remote.allowAnyHosts = true
 	}    
     stages{
         stage("Clean Up"){
@@ -50,10 +44,12 @@ pipeline{
 		}
 
         stage("SSH Into k8s Server") {
-
-            steps{
-                echo ""
-            }
+            def remote = [:]
+            remote.name = 'k8s-master'
+            remote.host = '54.151.162.184'
+            remote.user = 'k8sadmin'
+            remote.password = 'k8sadmin'
+            remote.allowAnyHosts = true
         } 
 
         stage('Deploying App to Kubernetes') {

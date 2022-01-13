@@ -35,8 +35,12 @@ pipeline{
         }                          
     }
 }
-
-
+-----------------------------------------
+        stage("Clone Repo"){
+            steps{
+                sh "git clone https://github.com/tanachote-su/hello_devops.git"
+            }
+        }
 
         stage("SSH Into k8s Server") {
                 def remote = [:]
