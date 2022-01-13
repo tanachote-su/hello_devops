@@ -41,7 +41,14 @@ pipeline{
 			steps {
 				sh 'docker push ${repoName}/${imageName}:${imageTag}'
 			}
-		}        
+		}
+        stage("Deployment"){
+            steps{
+                dir('hello_devops/manifest') {
+                    sh "kubectl apply -f deployment.yaml"
+                }
+            }
+        }                
     }
 	post {
 		always {
