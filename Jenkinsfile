@@ -44,9 +44,8 @@ pipeline{
 		}
         stage("Deployment"){
             steps{
-                dir('hello_devops/manifest') {
-                    sh "kubectl get pod"
-                }
+                sh "pwd"
+                sh "kubectl version"
             }
         }
     }
