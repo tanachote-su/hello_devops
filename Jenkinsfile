@@ -3,7 +3,7 @@ pipeline{
 	environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
         def repoName = "icyberx"
-        def imageTag = "1.0.0.1"
+        def imageTag = "1.0.0.2"
         def imageName = "hello_devops"
 	}    
     stages{
@@ -42,11 +42,10 @@ pipeline{
 				sh 'docker push ${repoName}/${imageName}:${imageTag}'
 			}
 		}
+
         stage("Deployment"){
             steps{
-                dir('hello_devops/manifest') {
-                    sh "kubectl apply -f deployment.yaml"
-                }
+                sh "kubectl apply -f ./manifest/deployment.yaml"
             }
         }                
     }
