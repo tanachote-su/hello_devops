@@ -9,3 +9,5 @@
       dest: /home/ec2-user
       mode: 0600
       owner: ec2-user
+  - name: apply kubernetes deployment
+    shell: "kubectl apply -f deployment.yaml"     
