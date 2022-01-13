@@ -17,13 +17,42 @@ pipeline{
                 sh "git clone https://github.com/tanachote-su/hello_devops.git"
             }
         }
+        stage("Build Docker Image"){
+            steps{
+                dir('hello_devops') {
+                    echo "Clean Environment ..."
+                    sh "docker rm -f ${imageName}"
+                    sh "docker rmi -f ${repoName}/${imageName}:${imageTag}"
+                    echo ""
+                    echo "Build image && Run container in background ..."
+                    sh "docker build -f ./hello_devops/Dockerfile -t ${repoName}/${imageName}:${imageTag} ."
+                }
+            }
+        }
+		stage('Login') {
 
-		stage('Deploying App to Kubernetes') {
-		    steps {
-			    sh "pwd"
-			    sh "cat ./hello_devops/manifest/deployment.yaml"
-		    }
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
 		}
-    }
 
+		stage('Push') {
+
+			steps {
+				sh 'docker push ${repoName}/${imageName}:${imageTag}'
+			}
+		}
+        stage('Deploying App to Kubernetes') {
+            steps {
+                script {
+                    kubernetesDeploy(configs: "./hello_devops/manifest/deployment.yaml", kubeconfigId: "kubernetes")
+                }
+            }
+        }
+    }
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}    
 }
