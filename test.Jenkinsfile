@@ -51,4 +51,4 @@ pipeline{
                 remote.allowAnyHosts = true
         } 
 
-       
+        ansiblePlaybook credentialsId: 'k8s-master', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.inv', playbook: 'boook-deployment.yaml'
