@@ -45,9 +45,6 @@ pipeline{
 
         stage('Deploying App to Kubernetes') {
             steps{
-                sh 'pwd'
-            }  
-            steps{
                 dir('hello_devops/manifest') {
                     sh 'pwd'
                     sh '/usr/local/bin/kubectl apply -f deployment.yaml'
