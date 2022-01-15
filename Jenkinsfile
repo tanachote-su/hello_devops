@@ -42,14 +42,7 @@ pipeline{
 				sh 'docker push ${repoName}/${imageName}:${imageTag}'
 			}
 		}
-        stage('SonarQube Analysis') {
-            def scannerHome = tool 'SonarScanner for MSBuild'
-            withSonarQubeEnv() {
-            bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"hello-devops-project\""
-            bat "dotnet build"
-            bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
-            }
-        }
+
         stage('Deploying App to Kubernetes') {
             steps{
                 dir('hello_devops/manifest') {
