@@ -42,13 +42,14 @@ pipeline{
 				sh 'docker push ${repoName}/${imageName}:${imageTag}'
 			}
 		}
+
         stage('Deploying App to Kubernetes') {
-            steps {
-                sh "pwd"
-                script {
-                    kubernetesDeploy(configs: "./hello_devops/hello_devops/manifest/deploymentservice.yml", kubeconfigId: "kubernetes")
+            steps{
+                dir('hello_devops/manifest') {
+                    sh 'pwd'
+                    sh '/usr/local/bin/kubectl apply -f deployment.yaml'
                 }
-            }
+            }            
         }
     }
 	post {
