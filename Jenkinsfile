@@ -3,7 +3,7 @@ pipeline{
 	environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
         def repoName = "icyberx"
-        def imageTag = "1.0.0.3"
+        def imageTag = "1.0.0.4"
         def imageName = "hello_devops"
 	}    
     stages{

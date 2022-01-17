@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hello-devops
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: hello-devops
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: hello-devops
-        image: icyberx/hello_devops:1.0.0.3
+        image: icyberx/hello_devops:1.0.0.4
         ports:
         - containerPort: 80
