@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: hello-devops
-        image: icyberx/hello_devops:1.0.0.2
+        image: icyberx/hello_devops:1.0.0.3
         ports:
         - containerPort: 80

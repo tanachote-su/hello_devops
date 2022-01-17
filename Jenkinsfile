@@ -3,7 +3,7 @@ pipeline{
 	environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
         def repoName = "icyberx"
-        def imageTag = "1.0.0.2"
+        def imageTag = "1.0.0.3"
         def imageName = "hello_devops"
 	}    
     stages{
@@ -29,14 +29,14 @@ pipeline{
                 }
             }
         }
-		stage('Login') {
+		stage('Login to DockerHub') {
 
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
 
-		stage('Push') {
+		stage('Push Image to DockerHub') {
 
 			steps {
 				sh 'docker push ${repoName}/${imageName}:${imageTag}'
