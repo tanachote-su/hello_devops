@@ -12,7 +12,7 @@ namespace hello_devops
             string comName = Environment.MachineName.ToString();
             string appName = Assembly.GetEntryAssembly().GetName().Name;
             string appVersion = Assembly.GetEntryAssembly().GetName().Version.ToString();
-            string userName = "Tony";
+            string userName = "John";
             int seq = 0;
             while (true)
             {
